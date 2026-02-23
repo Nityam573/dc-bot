@@ -1,0 +1,32 @@
+{
+  "name": "discord-ai-support-bot",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "pnpm": {
+    "overrides": {
+      "ioredis": "5.9.3"
+    }
+  },
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "rag:smoke": "node --loader ts-node/esm scripts/rag_smoke.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.16.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@pinecone-database/pinecone": "^7.0.0",
+    "dotenv": "^16.4.5"
+  }
+}

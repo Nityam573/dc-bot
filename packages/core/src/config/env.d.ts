@@ -1,0 +1,63 @@
+import "dotenv/config";
+import { z } from "zod";
+declare const schema: z.ZodObject<{
+    GEMINI_API_KEY: z.ZodString;
+    GEMINI_CHAT_MODEL: z.ZodDefault<z.ZodString>;
+    GEMINI_EMBEDDING_MODEL: z.ZodDefault<z.ZodString>;
+    PINECONE_API_KEY: z.ZodString;
+    PINECONE_INDEX: z.ZodString;
+    PINECONE_NAMESPACE: z.ZodString;
+    CHUNK_SIZE: z.ZodDefault<z.ZodNumber>;
+    CHUNK_OVERLAP: z.ZodDefault<z.ZodNumber>;
+    TOP_K_RESULTS: z.ZodDefault<z.ZodNumber>;
+    MIN_CONFIDENCE_SCORE: z.ZodDefault<z.ZodNumber>;
+    DISCORD_BOT_TOKEN: z.ZodString;
+    DISCORD_APPLICATION_ID: z.ZodString;
+    DISCORD_SUPPORT_CHANNEL_IDS: z.ZodEffects<z.ZodString, string[], string>;
+}, "strip", z.ZodTypeAny, {
+    GEMINI_API_KEY: string;
+    GEMINI_CHAT_MODEL: string;
+    GEMINI_EMBEDDING_MODEL: string;
+    PINECONE_API_KEY: string;
+    PINECONE_INDEX: string;
+    PINECONE_NAMESPACE: string;
+    CHUNK_SIZE: number;
+    CHUNK_OVERLAP: number;
+    TOP_K_RESULTS: number;
+    MIN_CONFIDENCE_SCORE: number;
+    DISCORD_BOT_TOKEN: string;
+    DISCORD_APPLICATION_ID: string;
+    DISCORD_SUPPORT_CHANNEL_IDS: string[];
+}, {
+    GEMINI_API_KEY: string;
+    PINECONE_API_KEY: string;
+    PINECONE_INDEX: string;
+    PINECONE_NAMESPACE: string;
+    DISCORD_BOT_TOKEN: string;
+    DISCORD_APPLICATION_ID: string;
+    DISCORD_SUPPORT_CHANNEL_IDS: string;
+    GEMINI_CHAT_MODEL?: string | undefined;
+    GEMINI_EMBEDDING_MODEL?: string | undefined;
+    CHUNK_SIZE?: number | undefined;
+    CHUNK_OVERLAP?: number | undefined;
+    TOP_K_RESULTS?: number | undefined;
+    MIN_CONFIDENCE_SCORE?: number | undefined;
+}>;
+export type Env = z.infer<typeof schema>;
+export declare const env: {
+    GEMINI_API_KEY: string;
+    GEMINI_CHAT_MODEL: string;
+    GEMINI_EMBEDDING_MODEL: string;
+    PINECONE_API_KEY: string;
+    PINECONE_INDEX: string;
+    PINECONE_NAMESPACE: string;
+    CHUNK_SIZE: number;
+    CHUNK_OVERLAP: number;
+    TOP_K_RESULTS: number;
+    MIN_CONFIDENCE_SCORE: number;
+    DISCORD_BOT_TOKEN: string;
+    DISCORD_APPLICATION_ID: string;
+    DISCORD_SUPPORT_CHANNEL_IDS: string[];
+};
+export {};
+//# sourceMappingURL=env.d.ts.map

@@ -1,0 +1,21 @@
+{
+    "name": "@app/worker",
+    "private": true,
+    "type": "module",
+    "main": "dist/index.js",
+    "scripts": {
+      "dev": "tsx watch src/index.ts",
+      "build": "tsc -p tsconfig.json",
+      "start": "node dist/index.js"
+    },
+    "dependencies": {
+      "@app/core": "workspace:*",
+      "bullmq": "^5.7.0",
+      "dotenv": "^16.4.5"
+    },
+    "devDependencies": {
+      "tsx": "^4.16.0",
+      "typescript": "^5.6.3"
+    }
+  }
+  
