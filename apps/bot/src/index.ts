@@ -10,8 +10,8 @@ import { env } from '@app/core';
 client.once(Events.ClientReady, (readyClient) => {
   console.log('\n🤖 Bot is online!');
   console.log(`   Logged in as: ${readyClient.user.tag}`);
-  console.log(`   Watching channels: ${env.DISCORD_SUPPORT_CHANNEL_IDS.join(', ')}`);
-  console.log('   Responding to: @mentions only\n');
+  console.log(`   Watching ticket category: ${env.TICKET_CATEGORY_ID}`);
+  console.log('   Responding to: explicit @mentions in ticket channels only\n');
 });
 
 // ── Message handler ───────────────────────────────────────────────────────────

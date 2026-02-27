@@ -30,9 +30,7 @@ const schema = z.object({
   // Discord
   DISCORD_BOT_TOKEN: z.string().min(1),
   DISCORD_APPLICATION_ID: z.string().min(1),
-  DISCORD_SUPPORT_CHANNEL_IDS: z
-    .string()
-    .transform((val) => val.split(",").map((s) => s.trim())),
+  TICKET_CATEGORY_ID: z.string().min(1),
 });
 
 export type Env = z.infer<typeof schema>;

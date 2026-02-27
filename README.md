@@ -79,7 +79,7 @@ PINECONE_NAMESPACE=v1                 # logical namespace inside the index
 # ── Discord ────────────────────────────────────────────────────────────────────
 DISCORD_BOT_TOKEN=your_discord_bot_token_here
 DISCORD_APPLICATION_ID=your_discord_application_id_here
-DISCORD_SUPPORT_CHANNEL_IDS=123456789,987654321   # comma-separated channel IDs
+TICKET_CATEGORY_ID=123456789012345678   # Discord category ID for your ticket channels
 
 # ── RAG Tuning (optional, these are good defaults) ────────────────────────────
 CHUNK_SIZE=512
@@ -113,8 +113,9 @@ ADMIN_TOKEN=choose_a_secret_token     # protects the /api/upload endpoint
 3. Copy the **Application ID** from the General Information tab → `DISCORD_APPLICATION_ID`
 4. Under **OAuth2 → URL Generator**, select scopes: `bot`, permissions: `Send Messages`, `Read Message History`, `View Channels`
 5. Open the generated URL to invite the bot to your server
-6. Right-click the channel(s) where the bot should listen → **Copy Channel ID** → `DISCORD_SUPPORT_CHANNEL_IDS`
-   - (Enable Developer Mode in Discord settings if Copy ID is missing)
+6. Right-click the **Support Tickets category** (the category that Ticket Tool creates channels under) → **Copy Category ID** → `TICKET_CATEGORY_ID`
+   - (Enable Developer Mode in Discord Settings → Advanced if Copy ID is missing)
+   - The bot will respond in **any channel** whose parent is this category — no need to configure individual channel IDs
 
 ## 3. Build the Shared Package
 
@@ -234,9 +235,9 @@ discord-bot/
 ## Troubleshooting
 
 **Bot doesn't respond**
-- Check that the channel ID is in `DISCORD_SUPPORT_CHANNEL_IDS`
-- Make sure you @mentioned the bot (not just sent a message)
-- Check the bot terminal for error output
+- Make sure the message is inside a channel whose parent is `TICKET_CATEGORY_ID`
+- Make sure you explicitly @mentioned the bot (not just sent a message in the channel)
+- Check the bot terminal for error output — it logs the category it is watching on startup
 
 **"0 chunks above score threshold"**
 - No documents have been ingested yet — run the ingest script first

@@ -3,25 +3,30 @@ import { env } from '@app/core';
 
 /**
  * Returns true if the bot should process this message.
+ *
+ * Rules (all must pass):
+ *  1. Author is not a bot.
+ *  2. Message is in a guild (not a DM).
+ *  3. Channel is a direct child of TICKET_CATEGORY_ID (i.e. a ticket channel).
+ *  4. This bot is explicitly @mentioned by the user.
+ *  5. The message has text content or image attachments (not a bare mention with nothing else).
  */
 export function shouldHandleMessage(message: Message, botClient: Client): boolean {
   // 1. Ignore bots
   if (message.author.bot) return false;
 
-  // 2. Only in support channels
-  if (!env.DISCORD_SUPPORT_CHANNEL_IDS.includes(message.channelId)) return false;
+  // 2. Only guild messages (not DMs)
+  if (!message.inGuild()) return false;
 
-  // 3. Only when bot user is @mentioned OR the message contains any mention
-  //    (handles cases where users mention a role that includes the bot)
-  const botMentioned = botClient.user
-    ? message.mentions.has(botClient.user.id) || message.content.includes('<@')
-    : false;
+  // 3. Only ticket channels — channel must be a direct child of the configured category
+  if (message.channel.parentId !== env.TICKET_CATEGORY_ID) return false;
 
-  if (!botMentioned) return false;
+  // 4. Only when this bot is explicitly @mentioned
+  if (!botClient.user || !message.mentions.users.has(botClient.user.id)) return false;
 
-  // 4. Ignore if nothing left after stripping all mentions
+  // 5. Must have text content or at least one attachment (ignore bare @mentions)
   const content = stripAllMentions(message.content).trim();
-  if (!content) return false;
+  if (!content && message.attachments.size === 0) return false;
 
   return true;
 }
